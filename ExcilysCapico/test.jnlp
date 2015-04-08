@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+" codebase="" href="">
+	<information>
+		<title>Dynamic Tree Demo</title>
+		<vendor>Dynamic Team</vendor>
+	</information>
+	<resources>
+		<j2se version="1.6+"
+			href="http://java.sun.com/producs/autod1/j2se" />
+		<jar href="Simple.jar" main="true" />
+	</resources>
+	<applet-desc
+		name="Simple"
+		main-class="components.Simple"
+		width="300"
+		height="300">
+	<applet-desc>
+	<update check="background" />
+</jnlp>	
