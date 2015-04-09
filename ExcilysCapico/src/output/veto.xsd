@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="animal" type="animal"/>
+
+  <xs:element name="chat" type="chat"/>
+
+  <xs:element name="veterinaire" type="veterinaire"/>
+
+  <xs:complexType name="veterinaire">
+    <xs:sequence>
+      <xs:element name="lAnimaux" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="lAnimaux" type="animal" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="animal" abstract="true">
+    <xs:sequence>
+      <xs:element name="cri" type="xs:string" minOccurs="0"/>
+      <xs:element name="prenom" type="xs:string" minOccurs="0"/>
+      <xs:element name="adresse" type="adresse" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute name="tag" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="adresse">
+    <xs:sequence>
+      <xs:element name="lieu" type="xs:string" minOccurs="0"/>
+      <xs:element name="numero" type="xs:int"/>
+      <xs:element name="rue" type="type" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="chien">
+    <xs:complexContent>
+      <xs:extension base="animal">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="chat">
+    <xs:complexContent>
+      <xs:extension base="animal">
+        <xs:sequence/>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:simpleType name="type">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AVENUE"/>
+      <xs:enumeration value="RUE"/>
+      <xs:enumeration value="BOULVARD"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+

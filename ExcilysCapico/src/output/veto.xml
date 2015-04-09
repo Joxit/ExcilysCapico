@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<veterinaire>
+    <lAnimaux>
+        <lAnimaux xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="chat" tag="Chat-1">
+            <cri>miaule</cri>
+            <prenom>coco</prenom>
+            <adresse>
+                <lieu>Claude Debussy</lieu>
+                <numero>37</numero>
+                <rue>AVENUE</rue>
+            </adresse>
+        </lAnimaux>
+        <lAnimaux xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="chat" tag="Chat-2">
+            <cri>miaule</cri>
+            <prenom>garou</prenom>
+            <adresse>
+                <lieu>Chanteraines</lieu>
+                <numero>21</numero>
+                <rue>RUE</rue>
+            </adresse>
+        </lAnimaux>
+        <lAnimaux xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="chien" tag="Chien-1">
+            <cri>aboie</cri>
+            <prenom>belle</prenom>
+            <adresse>
+                <lieu>Margueritte</lieu>
+                <numero>42</numero>
+                <rue>RUE</rue>
+            </adresse>
+        </lAnimaux>
+        <lAnimaux xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="chien" tag="Chien-2">
+            <cri>aboie</cri>
+            <prenom>sebastien</prenom>
+            <adresse>
+                <lieu>Saint-Jacques</lieu>
+                <numero>2</numero>
+                <rue>BOULVARD</rue>
+            </adresse>
+        </lAnimaux>
+    </lAnimaux>
+</veterinaire>
