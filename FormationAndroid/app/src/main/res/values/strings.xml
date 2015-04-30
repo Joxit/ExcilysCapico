@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Exo1</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="strHeader">Formulaire de connexion</string>
+    <string name="strUser">Nom d\'utilisateur</string>
+    <string name="strPwd">Mot de Passe</string>
+    <string name="btVider">Vider</string>
+    <string name="btSend">Envoyer</string>
+    <string name="action_bonus">Bonus</string>
+</resources>
