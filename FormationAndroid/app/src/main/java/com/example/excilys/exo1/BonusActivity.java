@@ -8,10 +8,10 @@ import android.util.Log;
  * Created by excilys on 30/04/15.
  */
 public class BonusActivity extends Activity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.bonus);
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.bonus);
 
-    }
+	}
 }
