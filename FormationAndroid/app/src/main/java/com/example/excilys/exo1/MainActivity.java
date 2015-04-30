@@ -208,6 +208,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 			if (o == 200) {
 				Intent intent = new Intent(mContext, DashBoardActivity.class);
 				intent.putExtra("User", login);
+				intent.putExtra("Pwd", pwd);
 				sp.edit().putString("User", login).putString("Pwd", pwd).apply();
 				startActivity(intent);
 			}
