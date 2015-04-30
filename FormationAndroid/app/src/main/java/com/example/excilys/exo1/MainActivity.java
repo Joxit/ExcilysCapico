@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
@@ -38,6 +39,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
 	private TextView mErrorUserTxt;
 	private TextView mErrorPwdTxt;
 	private Activity mContext;
+	private ParlezVousTask task;
+	private SharedPreferences sp;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,39 +54,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
 		mPwdEditTxt = (EditText) findViewById(R.id.editText2);
 		mErrorUserTxt = (TextView) findViewById(R.id.errorUser);
 		mErrorPwdTxt = (TextView) findViewById(R.id.errorPsw);
-		mViderBtn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				mPwdEditTxt.setText("");
-				mUserEditTxt.setText("");
-			}
-		});
+		sp = getPreferences(MODE_PRIVATE);
+		mViderBtn.setOnClickListener(this);
+		mSendBtn.setOnClickListener(this);
 
-		mSendBtn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				boolean goToast = false;
-				if (mPwdEditTxt.getText().toString().isEmpty()) {
-					mErrorPwdTxt.setText("Ce champs est vide!");
-
-					mErrorPwdTxt.setVisibility(View.VISIBLE);
-				} else {
-					goToast = true;
-					mErrorPwdTxt.setVisibility(View.GONE);
-				}
-				if (mUserEditTxt.getText().toString().isEmpty()) {
-					mErrorUserTxt.setVisibility(View.VISIBLE);
-					mErrorUserTxt.setText("Ce champs est vide!");
-				} else {
-					mErrorUserTxt.setVisibility(View.GONE);
-					if (!goToast) goToast = true;
-				}
-				if (goToast) {
-					ParlezVousTask task = new ParlezVousTask(mContext);
-					task.execute();
-				}
-			}
-		});
+		if (sp.getString("User", null) != null) {
+			mUserEditTxt.setText(sp.getString("User", null));
+			mPwdEditTxt.setText(sp.getString("Pwd", null));
+			startTask(sp.getString("User", null), sp.getString("Pwd", null));
+		}
 
 	}
 
@@ -91,14 +70,48 @@ public class MainActivity extends Activity implements View.OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.btVider: {
-
+				mPwdEditTxt.setText("");
+				mUserEditTxt.setText("");
 				break;
 			}
 			case R.id.btSend: {
-
+				boolean goToast = true;
+				String user = mUserEditTxt.getText().toString();
+				String pwd = mPwdEditTxt.getText().toString();
+				if (user.isEmpty()) {
+					mErrorUserTxt.setVisibility(View.VISIBLE);
+					mErrorUserTxt.setText(R.string.empty_edit_text);
+					goToast = false;
+				} else {
+					mErrorUserTxt.setVisibility(View.GONE);
+				}
+				if (pwd.isEmpty()) {
+					mErrorPwdTxt.setText(R.string.empty_edit_text);
+					mErrorPwdTxt.setVisibility(View.VISIBLE);
+					goToast = false;
+				} else {
+					mErrorPwdTxt.setVisibility(View.GONE);
+				}
+				if (goToast) {
+					startTask(user, pwd);
+				}
 				break;
 			}
 		}
+	}
+
+	private void startTask(String user, String pwd) {
+		if (task == null) {
+			task = new ParlezVousTask(mContext);
+			task.execute(user, pwd);
+		}
+	}
+
+	private void cancelTask() {
+		if (task != null) {
+			task.cancel(true);
+		}
+		task = null;
 	}
 
 	@Override
@@ -158,25 +171,31 @@ public class MainActivity extends Activity implements View.OnClickListener {
 		return super.onOptionsItemSelected(item);
 	}
 
-	private class ParlezVousTask extends android.os.AsyncTask<Object, Object, Integer> {
+	private class ParlezVousTask extends android.os.AsyncTask<String, Object, Integer> {
 		private Activity mContext;
 		private ProgressBar pb;
+		private String login;
+		String pwd;
 
 		public ParlezVousTask(Activity c) {
 			mContext = c;
 		}
 
 		@Override
-		protected Integer doInBackground(Object[] params) {
+		protected Integer doInBackground(String[] params) {
+			if (params == null || params.length != 2) {
+				throw new IllegalArgumentException("Should be 2 args");
+			}
+			login = params[0];
+			pwd = params[1];
 			DefaultHttpClient client = new DefaultHttpClient();
 			HttpGet request = new HttpGet("http://training.loicortola.com/parlez-vous-android/connect/"
-					+ mUserEditTxt.getText().toString() + "/" + mPwdEditTxt.getText().toString());
-			HttpResponse response = null;
+					+ login + "/" + pwd);
 			try {
-				response = client.execute(request);
+				HttpResponse response = client.execute(request);
 				return response.getStatusLine().getStatusCode();
 			} catch (IOException e) {
-
+				Log.e(TAG, e.getMessage());
 			}
 			return 0;
 		}
@@ -186,6 +205,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
 			super.onPostExecute(o);
 			pb.setVisibility(View.GONE);
 			Toast.makeText(mContext, "Code : " + o, Toast.LENGTH_SHORT).show();
+			if (o == 200) {
+				Intent intent = new Intent(mContext, DashBoardActivity.class);
+				intent.putExtra("User", login);
+				sp.edit().putString("User", login).putString("Pwd", pwd).apply();
+				startActivity(intent);
+			}
 		}
 
 		@Override
@@ -193,6 +218,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
 			super.onPreExecute();
 			pb = (ProgressBar) findViewById(R.id.progressBar);
 			pb.setVisibility(View.VISIBLE);
+			task = null;
 		}
 	}
 }

@@ -9,4 +9,7 @@
     <string name="btVider">Vider</string>
     <string name="btSend">Envoyer</string>
     <string name="action_bonus">Bonus</string>
+    <string name="empty_edit_text">Ce champs est vide!</string>
+    <string name="title_activity_dash_board">DashBoardActivity</string>
+    <string name="hello_dude">Salut %1</string>
 </resources>
