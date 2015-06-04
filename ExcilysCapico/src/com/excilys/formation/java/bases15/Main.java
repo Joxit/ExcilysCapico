@@ -60,6 +60,5 @@ public class Main {
 				"src/output/veto.xml"));
 
 		System.out.println(vetoBak);
-
 	}
 }

@@ -58,6 +58,23 @@ public class Voiture {
 		this.marque = marque;
 	}
 
+	@Override
+	protected void finalize() throws Throwable {
+		System.out.println("destruction : " + this);
+		marque = null;
+		immatriculation = null;
+		couleur = null;
+		prix = 0.0;
+		System.out.println(this);
+	}
+
+	@Override
+	public String toString() {
+		return "Voiture [marque=" + marque + ", immatriculation="
+				+ immatriculation + ", couleur=" + couleur + ", prix=" + prix
+				+ "]";
+	}
+
 	public static void main(String[] args) {
 		Voiture v = new Voiture();
 		System.out.println("Attributs");
@@ -71,6 +88,11 @@ public class Voiture {
 		System.out.println("Constructeur");
 		for (Constructor<?> c : v.getClass().getConstructors()) {
 			System.out.println(c);
+		}
+		v = null;
+		System.gc();
+		for (int i = Integer.MIN_VALUE; i < Integer.MAX_VALUE; i++) {
+
 		}
 	}
 }
