@@ -1,0 +1,137 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:400,700,700italic,400italic);
+
+html {
+  font-family: 'Roboto Slab', serif;
+}
+
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+.thumbnail {
+  height: 200px;
+
+  img.pull-right {
+    width: 50px;
+  }
+}
+
+md-toolbar.md-default-theme {
+  background-color: black;
+}
+
+section.jumbotron {
+  margin-bottom: 30px;
+  padding: 1px 30px;
+  background-color: #5aadbb;
+  text-align: center;
+
+  color: white;
+
+  h1 {
+    font-size: 3em;
+  }
+}
+
+.techs {
+  display: flex;
+  flex-flow: row wrap;
+
+  md-card {
+    width: 30%;
+
+    img.pull-right {
+      float: right;
+      width: 50px;
+    }
+  }
+}
+
+/* Do not remove this comments bellow. It's the markers used by gulp-inject to inject
+   all your sass files automatically */
+// injector
+// endinjector
+
+#header {
+  position: fixed;
+  min-height: 58px;
+  height: 100%;
+  @media screen and (max-width: 1980px) {
+    background: url("../assets/header/header_lg.jpg") no-repeat fixed;
+    max-height: 100px;
+  }
+  @media screen and (max-width: 1201px) {
+    background: url("../assets/header/header_md.jpg") no-repeat fixed;
+    max-height: 91px;
+  }
+  @media screen and (max-width: 990px) {
+    background: url("../assets/header/header_sm.jpg") no-repeat fixed;
+    max-height: 75px;
+  }
+  @media screen and (max-width: 766px) {
+    background: url("../assets/header/header_xs.jpg") no-repeat fixed;
+    max-height: 58px;
+  }
+}
+
+md-content.content {
+  @media screen and (max-width: 1980px) {
+    top: 100px;
+  }
+  @media screen and (max-width: 1201px) {
+    top: 91px;
+  }
+  @media screen and (max-width: 990px) {
+    top: 75px;
+  }
+  @media screen and (max-width: 766px) {
+    top: 58px;
+  }
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 864px;
+  margin: auto;
+}
+
+.content md-whiteframe {
+  padding: 20px;
+  margin: 20px;
+  line-height: 22.4px;
+
+}
+
+.float-right {
+  float: right;
+}
+
+.avatar {
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 5px;
+  margin: 20px;
+}
+
+md-card-content {
+  margin: 20px;
+  width: 100%;
+  height: inherit;
+}
+
+md-card-content h2 {
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+}
+
+md-card-content p {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.6em;
+  margin: 5px 0px;
+}
